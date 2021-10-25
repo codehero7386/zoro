@@ -1,25 +1,23 @@
-using System;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
-namespace Roro.Blazor
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
+public class AmenitiesFragment extends Fragment {
 
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+    static ArrayList<Post> posts;
+    Post p;
+    RecyclerViewAdapter recyclerViewAdapter;
+    static RecyclerView recyclerView;
 
-            await builder.Build().RunAsync();
-        }
-    }
-}
+    private LocationRequest mLocationRequest;
+    LocationManager locationManager;
+    static Location currentUserLocation;
+    Location postLocation = null;
+
+    static double distanceToLocation = 0;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.amenities_fragment_layout, null);
+
+        locationManager = (LocationM…
